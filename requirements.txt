@@ -1,0 +1,7 @@
+Django
+Celery
+django-celery-beat
+django-celery-results
+django-decouple
+redis
+selenium
