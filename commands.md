@@ -10,3 +10,6 @@ python manage.py shell
 '''
 python manage.py runserver
 '''
+'''
+pip freeze > requirements.txt
+'''
