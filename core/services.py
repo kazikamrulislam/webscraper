@@ -27,4 +27,24 @@
 #         print("Time out aiting for page to load")
 #         browser.quit()
     
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from decouple import config
+from core.tasks import run_crawler
 
+
+
+
+def maincrawle():
+    driver = webdriver.Chrome()
+    driver.get(config('CRAWLING_URL'))
+    quotes = driver.find_elements(By.XPATH, '//div[@class="quote"]')
+
+    for quote in quotes:
+        text = quote.find_element(By.XPATH, './/span[@class="text"]').text
+        author = quote.find_element(By.XPATH, './/span/small[@class="author"]').text
+        tags = [tag.text for tag in quote.find_elements(By.XPATH, './/div[@class="tags"]/a[@class="tag"]')]
+        
+        print(text, author, tags)
+    if quotes:
+        run_crawler.delay(quotes)

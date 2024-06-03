@@ -1,3 +1,5 @@
-from django.shortcuts import render
+from django.views import View
+from core.services import maincrawle
 
-# Create your views here.
+class TestView(View):
+    maincrawle.start()

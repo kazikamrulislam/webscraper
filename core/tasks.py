@@ -1,6 +1,7 @@
 # from celery import task, shared_task
 # from quotescraper import celery_app
 # from .scrapers import scrape
+# from decouple import config
 
 # from selenium import webdriver
 # from selenium.webdriver.common.keys import Keys
@@ -8,6 +9,7 @@
 
 # driver = webdriver.Chrome()
 # driver.get("http://quotes.toscrape.com/js/")
+# driver.get(config('CRAWLING_URL'))
 # element = driver.find_element(By.CLASS_NAME, 'author')
 # element = driver.find_elements(By.XPATH, '//div/')
 
@@ -45,7 +47,8 @@ For fiend all elements specific div class
 # print(driver.title)
 
 from quotescraper import celery_app
+from core.tasks import run_crawler
 
 @celery_app.task(name="Run Crawler") #??name
 def crawler_run():
-    
+    run_crawler()
