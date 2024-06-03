@@ -20,10 +20,11 @@
 #     try:
 #         WebDriverWait(brawser, timeout).until(
 #             EC.visibility_of_element_located(
-#                 (By.XPATH, "//div[@class='something']")
+#                 (By.XPATH, "//div[@class='author']")
 #             )
 #         )
 #     except TimeoutException:
 #         print("Time out aiting for page to load")
 #         browser.quit()
     
+

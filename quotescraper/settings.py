@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from urllib.parse import quote
 from pathlib import Path
 from decouple import config
+from mongoengine import connect, disconnect_all
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,3 +129,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CELERY_BROKER_URL = config("CELERY_BROKER_REDIS_URL", default="redis://localhost:6379")
 CELERY_BROKER_CONNECTION_RETRY = True
 CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
+# Mongo setup
+
+MONGO_HOST = config('MONGO_HOST')
+MONGO_NAME = config('MONGO_NAME')
+MONGO_USERNAME = config('MONGO_USERNAME')
+MONGO_PASSWORD = config('MONGO_PASSWORD')
+MONGO_URL = f"mongodb://{MONGO_USERNAME}:{quote(MONGO_PASSWORD)}@{MONGO_HOST}/{MONGO_NAME}?authSource=admin"
+disconnect_all()
+connect(MONGO_NAME, host=MONGO_URL)
