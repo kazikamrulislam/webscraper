@@ -8,30 +8,30 @@ from mongoengine import *
 
 
 
-class BaseModelMongo(Document):
-    """
-    Base model for other models
-    """
-    is_active = BooleanField(default=True)
-    created_at = DateTimeField(default=datetime.datetime.now)
-    updated_at = DateTimeField(default=datetime.datetime.now)
-    meta = {
-        'abstract': True,
-        # 'allow_inheritance': True,
-        # 'indexes': ['is_active'],
-    }
+# class BaseModelMongo(Document):
+#     """
+#     Base model for other models
+#     """
+#     is_active = BooleanField(default=True)
+#     created_at = DateTimeField(default=datetime.datetime.now)
+#     updated_at = DateTimeField(default=datetime.datetime.now)
+#     meta = {
+#         'abstract': True,
+#         # 'allow_inheritance': True,
+#         # 'indexes': ['is_active'],
+#     }
 
 
-class QuotesModelMongo(BaseModelMongo):
+class QuotesModelMongo(Document):
     """
     Model for storing list of quotes
     """
-    quote = StringField(max_length=50, required=True, unique=True)
-    author = StringField(max_length=50, required=True, unique=True)
+    text = StringField(max_length=250)
+    author = StringField(max_length=80)
     tags = ListField(StringField(max_length=255))
 
-    @classmethod
-    def create(cls, quote: str, author: str, tags: list):
+    # @classmethod
+    # def create(cls, quote: str, author: str, tags: list):
         
-        obj = cls(quote=quote, author=author, tags=tags).save()
-        return obj
+    #     obj = cls(quote=quote, author=author, tags=tags).save()
+    #     return obj
