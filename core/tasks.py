@@ -19,8 +19,8 @@ def scrape_data(url):
         author = quote.find_element(By.XPATH, './/span/small[@class="author"]').text
         tags = [tag.text for tag in quote.find_elements(By.XPATH, './/div[@class="tags"]/a[@class="tag"]')]
         
-        # print(text, author, tags)
         QuotesModelMongo.objects.create(text=text, author=author, tags=tags)
+        # print(text, author, tags)
 
     driver.quit()
 
